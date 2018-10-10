@@ -1,7 +1,27 @@
-{
+
+  {
     "name": "PostgreSQL in Nodejs",
     "description": "PostgreSQL in Nodejs",
     "repository": "https://github.com/JitendraZaa/node-postgres.git",
     "logo": "https://node-postgres.herokuapp.com/Node.ico",
-    "keywords": ["Node.js", "PostgreSQL"]
+    "keywords": [
+      "node",
+      "postgres"
+    ],
+    "website": "https://github.com/JitendraZaa/node-postgres",
+    "success_url": "/",
+    "env": {
+      "SECRET_TOKEN": {
+        "description": "A secret key for verifying the integrity of signed cookies.",
+        "generator": "secret"
+      },
+      "DEMO_VAR": {
+        "description": "A demo config var",
+        "value": "5"
+      }
+    },
+    "image": "heroku/nodejs",
+    "addons": [
+      "heroku-postgresql"
+    ]
   }
