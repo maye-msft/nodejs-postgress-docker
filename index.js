@@ -5,7 +5,7 @@ var express = require('express');
 var app = express();
 
 const { Pool, Client } = require('pg')
-var conString = process.env.DATABASE_URL
+var conString = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost/postgres'
 
 
 
@@ -23,21 +23,26 @@ app.get('/', function (req, res) {
  * Connect to db
  */
 app.get('/testdb', function(req, res){
-    const client = new Client({
-        connectionString: conString,
-    })
-    client.connect()
-    client.query('SELECT NOW()', (err, result) => {
-        console.log(err, result)
-        res.send(result);
-        client.end()
-    })
+    try{
+        const client = new Client({
+            connectionString: conString,
+        })
+        client.connect()
+        client.query('SELECT NOW()', (err, result) => {
+            console.log(err, result)
+            res.send(result);
+            client.end()
+        })
+    } catch(err) {
+        console.log(err)
+        res.send(err);
+    }
 });
 
 /*
  * On server start
  */
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 8080
 
 var server = app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
